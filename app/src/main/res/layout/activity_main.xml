@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.116" />
+        app:layout_constraintVertical_bias="0.052" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -117,10 +117,10 @@
         android:fontFamily="@font/aladin"
         android:text="@string/score_0"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Trivia_text"
-        app:layout_constraintVertical_bias="0.562" />
+        app:layout_constraintVertical_bias="0.156" />
 
     <TextView
         android:textColor="@color/cardview_dark_background"
@@ -135,5 +135,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Trivia_text"
         app:layout_constraintVertical_bias="0.787" />
+
+    <TextView
+        android:fontFamily="@font/short_stack"
+        android:textSize="20sp"
+        android:id="@+id/creater_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/creater_zanhd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/false_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

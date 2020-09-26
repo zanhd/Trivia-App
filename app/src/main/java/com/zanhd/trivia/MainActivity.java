@@ -3,6 +3,7 @@ package com.zanhd.trivia;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -102,11 +103,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void UpdateQuestion(){
         questionTextview.setText(questionList.get(currQuesIndex).getQuestion());
         questionCounterTextView.setText((currQuesIndex+1) + " / " + questionList.size());
     }
 
+    @SuppressLint("SetTextI18n")
     private void check_answer(boolean ans){
         boolean correct_ans = questionList.get(currQuesIndex).getAnswer();
 
