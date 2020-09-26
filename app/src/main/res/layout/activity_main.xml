@@ -34,18 +34,21 @@
         app:layout_constraintTop_toBottomOf="@+id/Trivia_text" >
 
         <TextView
-            android:layout_gravity="center_vertical"
             android:id="@+id/question_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/aldrich"
             android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
 
     <Button
+        android:background="#8EF39B"
         android:id="@+id/true_button"
         android:layout_width="199dp"
         android:layout_height="53dp"
         android:layout_marginTop="84dp"
+        android:fontFamily="@font/coda"
         android:text="@string/true_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +56,8 @@
         tools:text="True" />
 
     <Button
+        android:background="#F48293"
+        android:fontFamily="@font/coda"
         android:id="@+id/false_button"
         android:layout_width="199dp"
         android:layout_height="53dp"
@@ -65,19 +70,27 @@
         tools:text="False" />
 
     <ImageButton
-        android:contentDescription="@string/prev_button"
         android:id="@+id/prev_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#F38EE5"
+        android:padding="8dp"
+        android:contentDescription="@string/prev_button"
+        android:src="@drawable/baseline_navigate_before_black_18dp"
+        app:layout_constraintBottom_toTopOf="@+id/true_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
         app:srcCompat="@android:drawable/ic_media_previous" />
 
     <ImageButton
-        android:contentDescription="@string/next_button"
+        android:padding="8dp"
         android:id="@+id/next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#F38EE5"
+        android:contentDescription="@string/next_button"
+        android:src="@drawable/baseline_navigate_next_black_18dp"
+        app:layout_constraintBottom_toTopOf="@+id/true_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
         app:srcCompat="@android:drawable/ic_media_next" />
@@ -89,10 +102,38 @@
         android:layout_marginEnd="12dp"
         android:text="@string/counter_question"
         android:textSize="16sp"
+        android:fontFamily="@font/aladin"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Trivia_text"
         app:layout_constraintVertical_bias="0.533"
         tools:text="@string/counter_question" />
+
+    <TextView
+        android:id="@+id/score_Textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/aladin"
+        android:text="@string/score_0"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Trivia_text"
+        app:layout_constraintVertical_bias="0.562" />
+
+    <TextView
+        android:textColor="@color/cardview_dark_background"
+        android:id="@+id/hightest_score_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/highest_score"
+        android:fontFamily="@font/aladin"
+        android:textSize="16sp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Trivia_text"
+        app:layout_constraintVertical_bias="0.787" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,4 +8,6 @@
     <string name="counter_question">0/100</string>
     <string name="correct_answer">Correct!</string>
     <string name="wrong_answer">InCorrect!</string>
+    <string name="score_0">Score : 0</string>
+    <string name="highest_score">Highest Score :</string>
 </resources>

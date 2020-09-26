@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.zanhd.trivia.data.QuestionBank;
 import com.zanhd.trivia.data.questionListAsyncResponce;
 import com.zanhd.trivia.model.Question;
+import com.zanhd.trivia.model.Score;
+import com.zanhd.trivia.util.Prefs;
 
 import org.w3c.dom.Text;
 
@@ -34,10 +36,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageButton prevButton;
     private int currQuesIndex = 0;
     private List<Question> questionList;
+
+    private TextView scoreTextView;
+    private TextView hightScoreTextview;
+    private int scoreCounter = 0;
+    private Score score;
+    private Prefs prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        score = new Score();
+        prefs  = new Prefs(MainActivity.this);
 
         nextButton = findViewById(R.id.next_button);
         prevButton = findViewById(R.id.prev_button);
@@ -45,11 +57,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         falseButton = findViewById(R.id.false_button);
         questionTextview = findViewById(R.id.question_textview);
         questionCounterTextView = findViewById(R.id.counter_text);
+        scoreTextView = findViewById(R.id.score_Textview);
+        hightScoreTextview = findViewById(R.id.hightest_score_TextView);
 
         nextButton.setOnClickListener(this);
         prevButton.setOnClickListener(this);
         trueButton.setOnClickListener(this);
         falseButton.setOnClickListener(this);
+
+        hightScoreTextview.setText("Highest Score : " + prefs.getHighScore());
+        //get previous State of question(index)
+        currQuesIndex = prefs.getState();
 
         questionList = new QuestionBank().getQuestions(new questionListAsyncResponce() {
             @Override
@@ -71,8 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 UpdateQuestion();
                 break;
             case R.id.next_button:
-                currQuesIndex = (currQuesIndex+1)%questionList.size();
-                UpdateQuestion();
+                goNext();
                 break;
             case R.id.true_button:
                 check_answer(true);
@@ -93,10 +110,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void check_answer(boolean ans){
         boolean correct_ans = questionList.get(currQuesIndex).getAnswer();
 
-        int toastMessageId = (ans == correct_ans)? R.string.correct_answer:R.string.wrong_answer;
-        if(ans != correct_ans) shakeAnimation();
-        else fadeView();
+        int toastMessageId;
+        if(ans == correct_ans){
+            toastMessageId = R.string.correct_answer;
+            fadeView();
+            addPoints();
+        }else{
+            toastMessageId = R.string.wrong_answer;
+            shakeAnimation();
+            deductPoints();
+        }
+        scoreTextView.setText("Score : " + score.getScore());
         Toast.makeText(this, toastMessageId, Toast.LENGTH_SHORT).show();
+    }
+
+    private void addPoints(){
+        scoreCounter++;
+        score.setScore(scoreCounter);
+    }
+
+    private void deductPoints(){
+        scoreCounter = (scoreCounter>0)?scoreCounter-1:scoreCounter;
+        score.setScore(scoreCounter);
     }
 
     void shakeAnimation(){
@@ -113,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onAnimationEnd(Animation animation) {
                 cardView.setCardBackgroundColor(Color.WHITE);
+                goNext();
             }
 
             @Override
@@ -121,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
     void fadeView(){
         final CardView cardView = findViewById(R.id.cardView);
         AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f,0.0f);
@@ -140,6 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onAnimationEnd(Animation animation) {
                 cardView.setCardBackgroundColor(Color.WHITE);
+                goNext();
             }
 
             @Override
@@ -147,5 +185,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+    }
+
+    private void goNext(){
+        currQuesIndex = (currQuesIndex+1)%questionList.size();
+        UpdateQuestion();
+    }
+
+    @Override
+    protected void onPause() {
+        prefs.saveHighScore(score.getScore());
+        prefs.setState(currQuesIndex);
+        super.onPause();
     }
 }
